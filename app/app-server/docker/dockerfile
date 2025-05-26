@@ -1,0 +1,17 @@
+FROM node:16-alpine
+
+WORKDIR /app
+
+COPY package.json ./
+COPY package-lock.json ./
+# Using ci will only read package-lock.json
+# Do not add --production, cuz we need dev depencies to build, like swagger
+RUN npm install -g npm prettier \
+    && npm ci --quiet --no-progress \
+COPY . ./
+ENV PATH /app/node_modules/.bin:$PATH
+RUN npm run build \
+    && npm cache clean --force
+ENV NODE_ENV production
+EXPOSE 8888
+CMD ["node", "/app/dist/main.js"]
