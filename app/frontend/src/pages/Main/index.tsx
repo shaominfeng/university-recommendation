@@ -124,120 +124,98 @@ const Main = () => {
     <div className="query">
       <Form
         name="basic"
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
+        labelCol={{ span: 6 }}
+        wrapperCol={{ span: 18 }}
         initialValues={{ remember: true, city: "jiangsu" }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
-        size="large"
+        size="middle"
         form={form}
+        layout="horizontal"
+        style={{ maxWidth: 800, margin: '0 auto', padding: '20px' }}
       >
-        <Row>
-          <Col span={1}></Col>
-          <Col span={22}>
+        <Row gutter={[16, 0]}>
+          <Col span={12}>
             <Form.Item name="city" label="地区">
               <Select
-                placeholder="Select a option and change input text above"
                 onChange={onCityChange}
-                style={{ maxWidth: "200px" }}
+                style={{ width: "100%" }}
               >
                 <Option value="jiangsu">江苏</Option>
-                <Option value="other" disabled>
-                  待添加
-                </Option>
-                {/*<Option value="other">other</Option>*/}
+                <Option value="other" disabled>待添加</Option>
               </Select>
             </Form.Item>
           </Col>
-        </Row>
-
-        <Row>
-          <Col span={1}></Col>
-          <Col span={22}>
-            {" "}
-            <Form.Item label="选科">
+          <Col span={12}>
+            <Form.Item label="选科" labelAlign="left">
               <Radio.Group onChange={onChange} value={subject}>
-                <Radio value="physics"> 物理 </Radio>
-                <Radio value="history"> 历史 </Radio>
+                <Radio value="physics">物理</Radio>
+                <Radio value="history">历史</Radio>
               </Radio.Group>
             </Form.Item>
           </Col>
-          <Col span={1}></Col>
         </Row>
 
-        <Row>
-          <Col span={1}></Col>
-          <Col span={22}>
-            {" "}
+        <Row gutter={[16, 0]}>
+          <Col span={12}>
             <Form.Item
               label="总分"
               name="score"
               rules={[{ required: true, message: "总分忘记喽！" }]}
             >
-              <Input style={{ maxWidth: "200px" }} />
-            </Form.Item>
-            <Form.Item label="推荐学校数量" name="count">
-              <Input style={{ maxWidth: "200px" }} />
+              <Input />
             </Form.Item>
           </Col>
-          <Col span={1}></Col>
+          <Col span={12}>
+            <Form.Item label="推荐学校数量" name="count">
+              <Input placeholder="默认300所" />
+            </Form.Item>
+          </Col>
         </Row>
 
         <Row>
-          <Col span={1}></Col>
-          <Col span={22}>
-            <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-              <Space size="large">
-                <Button type="primary" onClick={query}>
-                  查询
-                </Button>
-                <Button type="primary" htmlType="submit">
-                  下载推荐表
-                </Button>
-              </Space>
-            </Form.Item>
+          <Col span={24} style={{ textAlign: 'center' }}>
+            <Space size="middle">
+              <Button type="primary" onClick={query}>
+                查询
+              </Button>
+              <Button type="primary" htmlType="submit">
+                下载推荐表
+              </Button>
+            </Space>
           </Col>
-          <Col span={1}></Col>
         </Row>
       </Form>
 
-      {(universities as any)?.school?.schoolInfo ? (
-        <div>
-          <div>
-            <Row style={{ margin: "8px" }}>
-              <Space split={<Divider type="vertical" />}>
-                <p>
-                  {`${currentYear}年分数:`}
-                  {(universities as any).scoreAndRank[`${currentYear}`].score}
-                </p>
-                <p>
-                  {`${currentYear}年全省排名:`}
-                  {(universities as any).scoreAndRank[`${currentYear}`].rank}
-                </p>
-                <p>
-                  {`${currentYear - 1}年换算分数:`}
-                  {
-                    (universities as any).scoreAndRank[`${currentYear - 1}`]
-                      .score
-                  }
-                </p>
-                <p>
-                  {`${currentYear - 1}年全省排名:`}
-                  {
-                    (universities as any).scoreAndRank[`${currentYear - 1}`]
-                      .rank
-                  }
-                </p>
+      {(universities as any)?.school?.schoolInfo && (
+        <div style={{ padding: '20px' }}>
+          <Row style={{ marginBottom: '16px' }}>
+            <Col span={24}>
+              <Space split={<Divider type="vertical" />} style={{ justifyContent: 'center', width: '100%' }}>
+                <span>
+                  {`${currentYear}年分数: `}
+                  <strong>{(universities as any).scoreAndRank[`${currentYear}`].score}</strong>
+                </span>
+                <span>
+                  {`${currentYear}年全省排名: `}
+                  <strong>{(universities as any).scoreAndRank[`${currentYear}`].rank}</strong>
+                </span>
+                <span>
+                  {`${currentYear - 1}年换算分数: `}
+                  <strong>{(universities as any).scoreAndRank[`${currentYear - 1}`].score}</strong>
+                </span>
+                <span>
+                  {`${currentYear - 1}年全省排名: `}
+                  <strong>{(universities as any).scoreAndRank[`${currentYear - 1}`].rank}</strong>
+                </span>
               </Space>
-            </Row>
-          </div>
+            </Col>
+          </Row>
           <RecommendTable
             universities={(universities as any).school.schoolInfo}
           />
         </div>
-      ) : (
-        ""
       )}
     </div>
   );
