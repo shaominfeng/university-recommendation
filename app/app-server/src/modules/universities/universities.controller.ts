@@ -2,7 +2,7 @@ import { Controller, Post, Body, Get, Param, HttpException, HttpStatus } from '@
 import { UniversitiesService } from './universities.service';
 import { Subject } from './entities/universities.interface';
 
-@Controller('/__/')
+@Controller()
 export class UniversitiesController {
   constructor(private readonly universitiesService: UniversitiesService) {}
 

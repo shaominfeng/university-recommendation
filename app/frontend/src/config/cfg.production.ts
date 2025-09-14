@@ -2,7 +2,7 @@ const config = {
   ui: {
     title: "hello",
     request: {
-      baseUrl: "/__/",
+      baseUrl: "/",
       timeout: 60 * 1000,
     },
   },

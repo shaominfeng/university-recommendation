@@ -14,7 +14,8 @@ const configs: { [key: string]: {} } = {
 
 let env = "production";
 if (import.meta.env.MODE === "development") {
-  env = "mock";
+  env = "local";
 }
+console.log("Current env:", env);
 const config = merge(defaultConfig, configs[env]);
 export default config;
