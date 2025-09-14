@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+/app/app-server/node_modules
+/app/app-server/dist
+/app/app-server/my-logger
