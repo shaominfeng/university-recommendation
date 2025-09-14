@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Recommendation System | 大学推荐系统</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .language-switcher {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .lang-btn {
+            padding: 10px 20px;
+            border: 2px solid #1890ff;
+            background: transparent;
+            color: #1890ff;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .lang-btn.active {
+            background: #1890ff;
+            color: white;
+        }
+
+        .lang-btn:hover {
+            background: #1890ff;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            color: #1890ff;
+            border-bottom: 3px solid #1890ff;
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            color: #2c3e50;
+            margin-top: 30px;
+        }
+
+        h3 {
+            color: #34495e;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .feature-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #1890ff;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .tech-tag {
+            background: #e6f7ff;
+            color: #1890ff;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.9em;
+        }
+
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+        }
+
+        pre {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+
+        pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+        }
+
+        .installation-steps {
+            counter-reset: step-counter;
+        }
+
+        .installation-steps > div {
+            counter-increment: step-counter;
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #52c41a;
+            position: relative;
+        }
+
+        .installation-steps > div::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: -15px;
+            top: 15px;
+            background: #52c41a;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .roadmap ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .roadmap li {
+            padding: 10px;
+            margin: 5px 0;
+            background: #fff7e6;
+            border-left: 4px solid #fa8c16;
+            border-radius: 4px;
+        }
+
+        .roadmap li::before {
+            content: "□ ";
+            color: #fa8c16;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .language-switcher {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 University Recommendation System | 大学推荐系统</h1>
+            <p>An intelligent platform to help students find their perfect university match</p>
+            <p>帮助学生找到完美大学匹配的智能平台</p>
+
+            <div class="language-switcher">
+                <button class="lang-btn active" onclick="switchLanguage('en')" id="btn-en">
+                    🇺🇸 English
+                </button>
+                <button class="lang-btn" onclick="switchLanguage('zh')" id="btn-zh">
+                    🇨🇳 中文
+                </button>
+            </div>
+        </div>
+
+        <!-- English Content -->
+        <div id="content-en" class="content-section active">
+            <h2>📋 Overview</h2>
+            <p>The University Recommendation System is a web-based application designed to help high school students find suitable universities based on their college entrance examination scores. The system provides personalized recommendations by analyzing historical admission data and matching student scores with university admission requirements.</p>
+
+            <h2>✨ Features</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>🎯 Score-based Recommendations</h3>
+                    <p>Input your exam scores to get personalized university recommendations based on historical data analysis.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📊 Comprehensive Database</h3>
+                    <p>Includes admission data for universities in Jiangsu Province with 2021 data available and expanding coverage.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>⚡ Real-time Analysis</h3>
+                    <p>Automatic calculation and ranking based on your scores with instant results and detailed insights.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🎨 User-friendly Interface</h3>
+                    <p>Modern, responsive design built with React and Ant Design for optimal user experience.</p>
+                </div>
+            </div>
+
+            <h2>🛠️ Tech Stack</h2>
+            <h3>Frontend:</h3>
+            <div class="tech-stack">
+                <span class="tech-tag">React 19.1.0</span>
+                <span class="tech-tag">TypeScript</span>
+                <span class="tech-tag">Ant Design 5.25.2</span>
+                <span class="tech-tag">Vite 6.3.5</span>
+                <span class="tech-tag">React Router DOM</span>
+            </div>
+
+            <h3>Backend:</h3>
+            <div class="tech-stack">
+                <span class="tech-tag">NestJS 8.0.0</span>
+                <span class="tech-tag">MongoDB</span>
+                <span class="tech-tag">Mongoose</span>
+                <span class="tech-tag">Node.js</span>
+                <span class="tech-tag">TypeScript</span>
+            </div>
+
+            <h2>📦 Installation</h2>
+            <h3>Prerequisites</h3>
+            <ul>
+                <li>Node.js >= 16.14.2</li>
+                <li>Git</li>
+                <li>MongoDB (for backend)</li>
+            </ul>
+
+            <h3>Quick Start</h3>
+            <div class="installation-steps">
+                <div>
+                    <strong>Clone the repository</strong>
+                    <pre><code>git clone https://github.com/shaominfeng/UniversityRecommend.git
+cd university-recommendation</code></pre>
+                </div>
+                <div>
+                    <strong>Install Frontend Dependencies</strong>
+                    <pre><code>cd app/frontend
+npm install</code></pre>
+                </div>
+                <div>
+                    <strong>Install Backend Dependencies</strong>
+                    <pre><code>cd app/app-server
+npm install</code></pre>
+                </div>
+                <div>
+                    <strong>Start Development Servers</strong>
+                    <p>Frontend:</p>
+                    <pre><code>cd app/frontend
+npm run dev</code></pre>
+                    <p>Backend:</p>
+                    <pre><code>cd app/app-server
+npm run start:dev</code></pre>
+                </div>
+                <div>
+                    <strong>Access the Application</strong>
+                    <ul>
+                        <li>Frontend: <a href="http://localhost:5173" target="_blank">http://localhost:5173</a></li>
+                        <li>Backend API: <a href="http://localhost:3000" target="_blank">http://localhost:3000</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2>🗺️ Roadmap</h2>
+            <div class="roadmap">
+                <ul>
+                    <li>Add 2022 admission data for Jiangsu Province</li>
+                    <li>Expand to more provinces (Henan, Shandong, etc.)</li>
+                    <li>Include university categories (985/211 universities)</li>
+                    <li>Add major-specific admission scores</li>
+                    <li>Support for private/public university filtering</li>
+                    <li>Multi-language support enhancement</li>
+                </ul>
+            </div>
+
+            <h2>🤝 Contributing</h2>
+            <p>Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.</p>
+
+            <h2>📄 License</h2>
+            <p>This project is licensed under the MIT License - see the LICENSE file for details.</p>
+        </div>
+
+        <!-- Chinese Content -->
+        <div id="content-zh" class="content-section">
+            <h2>📋 项目概述</h2>
+            <p>大学推荐系统是一个基于Web的应用程序，旨在帮助高中生根据高考成绩找到合适的大学。系统通过分析历史录取数据，将学生成绩与大学录取要求进行匹配，提供个性化的推荐建议。</p>
+
+            <h2>✨ 主要功能</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>🎯 基于分数的推荐</h3>
+                    <p>输入高考成绩，基于历史数据分析获得个性化大学推荐。</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📊 全面的数据库</h3>
+                    <p>包含江苏省各大学录取数据，提供2021年数据并持续扩大覆盖范围。</p>
+                </div>
+                <div class="feature-card">
+                    <h3>⚡ 实时分析</h3>
+                    <p>基于您的分数自动计算和排名，提供即时结果和详细洞察。</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🎨 友好的用户界面</h3>
+                    <p>使用React和Ant Design构建的现代响应式设计，提供最佳用户体验。</p>
+                </div>
+            </div>
+
+            <h2>🛠️ 技术栈</h2>
+            <h3>前端：</h3>
+            <div class="tech-stack">
+                <span class="tech-tag">React 19.1.0</span>
+                <span class="tech-tag">TypeScript</span>
+                <span class="tech-tag">Ant Design 5.25.2</span>
+                <span class="tech-tag">Vite 6.3.5</span>
+                <span class="tech-tag">React Router DOM</span>
+            </div>
+
+            <h3>后端：</h3>
+            <div class="tech-stack">
+                <span class="tech-tag">NestJS 8.0.0</span>
+                <span class="tech-tag">MongoDB</span>
+                <span class="tech-tag">Mongoose</span>
+                <span class="tech-tag">Node.js</span>
+                <span class="tech-tag">TypeScript</span>
+            </div>
+
+            <h2>📦 安装说明</h2>
+            <h3>环境要求</h3>
+            <ul>
+                <li>Node.js >= 16.14.2</li>
+                <li>Git</li>
+                <li>MongoDB（后端需要）</li>
+            </ul>
+
+            <h3>快速开始</h3>
+            <div class="installation-steps">
+                <div>
+                    <strong>克隆仓库</strong>
+                    <pre><code>git clone https://github.com/shaominfeng/UniversityRecommend.git
+cd university-recommendation</code></pre>
+                </div>
+                <div>
+                    <strong>安装前端依赖</strong>
+                    <pre><code>cd app/frontend
+npm install</code></pre>
+                </div>
+                <div>
+                    <strong>安装后端依赖</strong>
+                    <pre><code>cd app/app-server
+npm install</code></pre>
+                </div>
+                <div>
+                    <strong>启动开发服务器</strong>
+                    <p>前端：</p>
+                    <pre><code>cd app/frontend
+npm run dev</code></pre>
+                    <p>后端：</p>
+                    <pre><code>cd app/app-server
+npm run start:dev</code></pre>
+                </div>
+                <div>
+                    <strong>访问应用程序</strong>
+                    <ul>
+                        <li>前端：<a href="http://localhost:5173" target="_blank">http://localhost:5173</a></li>
+                        <li>后端API：<a href="http://localhost:3000" target="_blank">http://localhost:3000</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2>🗺️ 发展规划</h2>
+            <div class="roadmap">
+                <ul>
+                    <li>添加江苏省2022年录取数据</li>
+                    <li>扩展到更多省份（河南、山东等）</li>
+                    <li>包含大学分类（985/211高校）</li>
+                    <li>添加专业录取分数线</li>
+                    <li>支持民办/公办大学筛选</li>
+                    <li>多语言支持增强</li>
+                </ul>
+            </div>
+
+            <h2>🤝 贡献指南</h2>
+            <p>欢迎贡献！请随时提交Pull Request。对于重大更改，请先开启issue讨论您想要更改的内容。</p>
+
+            <h2>📄 许可证</h2>
+            <p>该项目基于MIT许可证 - 查看LICENSE文件了解详情。</p>
+        </div>
+
+        <hr style="margin: 40px 0; border: none; height: 1px; background: linear-gradient(to right, transparent, #ddd, transparent);">
+
+        <div style="text-align: center; color: #666; margin-top: 30px;">
+            <p><strong>Made with ❤️ for students seeking their dream universities</strong></p>
+            <p><strong>为寻找理想大学的学生们用❤️制作</strong></p>
+            <p>
+                <a href="https://github.com/shaominfeng/UniversityRecommend" target="_blank">📖 GitHub Repository</a> |
+                <a href="https://github.com/shaominfeng/UniversityRecommend/issues" target="_blank">🐛 Report Issues</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function switchLanguage(lang) {
+            // Hide all content sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Remove active class from all buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show selected language content
+            document.getElementById(`content-${lang}`).classList.add('active');
+            document.getElementById(`btn-${lang}`).classList.add('active');
+
+            // Update page language attribute
+            document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+
+            // Store preference in localStorage
+            localStorage.setItem('preferredLanguage', lang);
+        }
+
+        // Load preferred language on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const preferredLang = localStorage.getItem('preferredLanguage') || 'en';
+            if (preferredLang === 'zh') {
+                switchLanguage('zh');
+            }
+        });
+
+        // Add keyboard shortcut (Ctrl/Cmd + L to switch languages)
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'l') {
+                e.preventDefault();
+                const currentLang = document.querySelector('.lang-btn.active').id.split('-')[1];
+                switchLanguage(currentLang === 'en' ? 'zh' : 'en');
+            }
+        });
+
+        // Add smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
