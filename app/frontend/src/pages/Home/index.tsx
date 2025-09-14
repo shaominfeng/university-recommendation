@@ -30,6 +30,8 @@ const headerStyle: React.CSSProperties = {
   textAlign: "center",
   color: "#fff",
   height: 64,
+  fontWeight: "bold",
+  fontSize: "24px",
   paddingInline: 48,
   lineHeight: "64px",
   backgroundColor: "#4096ff",
@@ -46,8 +48,7 @@ const Home = () => {
   return (
     <Layout style={layoutStyle}>
       <Header style={headerStyle}>
-        //年高考志愿学校推荐
-        <h1 className="title">{`${currentYear}`}</h1>
+        <span>{`${currentYear}年高考志愿学校推荐`}</span>
       </Header>
       <Content style={contentStyle}>
         <Row className="main">
