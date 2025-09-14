@@ -1,13 +1,14 @@
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { Subject } from './entities/universities.interface';
 import xlsx from 'node-xlsx';
-import path from 'path';
 import dayjs from 'dayjs';
+import { FileCacheService } from '../../common/services/file-cache.service';
 @Injectable()
 export class UniversitiesService {
   private readonly logger = new Logger(UniversitiesService.name);
   private readonly currentYear: number = dayjs().year();
   private readonly upScore = 5;
+  constructor(private readonly fileCacheService: FileCacheService) {}
   find(subject, score) {
     try {
       if (subject === 'history') {
@@ -96,11 +97,16 @@ export class UniversitiesService {
 
   private readFile(filename: string) {
     try {
-      const filePath = path.join(__dirname, `../../file/${filename}`);
-      const workSheetsFromFile = xlsx.parse(`${filePath}`);
+      const fileBuffer = this.fileCacheService.getFileBuffer(filename);
+      if (!fileBuffer) {
+        throw new HttpException({ message: '文件未找到' }, HttpStatus.BAD_REQUEST);
+      }
+      const workSheetsFromFile = xlsx.parse(fileBuffer);
       return workSheetsFromFile[0].data;
     } catch (error) {
-      throw new HttpException({ message: '请求参数无效' }, HttpStatus.BAD_REQUEST);
+      // eslint-disable-next-line no-console
+      console.error('[UniversitiesService] readFile error:', error);
+      throw new HttpException({ message: '请求参数无效', detail: error?.message }, HttpStatus.BAD_REQUEST);
     }
   }
 
